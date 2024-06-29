@@ -12,6 +12,7 @@ import utils.ProjectSettingLiterals.Companion.PATH_SEPARATOR
 import utils.ProjectSettingLiterals.Companion.PICTURE_SUPPORTED_FORMATS
 import utils.ProjectSettingLiterals.Companion.SPECIAL_SYMBOLS
 import utils.ProjectSettingLiterals.Companion.USER_EMAIL_END
+import utils.ResponseCode.Companion.SUCCESS
 import utils.endsWithOneOf
 import utils.getEntity
 import kotlin.test.assertTrue
@@ -25,10 +26,10 @@ import kotlin.test.assertTrue
 *   6. Each of User's field: first name, second name, email, must be less 255 symbols length
 */
 
-class UserDataTests : BaseUrlTestClass() {
+class SingleUserPage : BaseUrlTestClass() {
 
     override val url = EndPoints.SINGLE_USER_PAGE
-    override val logger: Logger = LoggerFactory.getLogger(UserDataTests::class.java)
+    override val logger: Logger = LoggerFactory.getLogger(SingleUserPage::class.java)
 
 
     @Test
@@ -82,9 +83,10 @@ class UserDataTests : BaseUrlTestClass() {
 
     private fun getUser(): UserData {
         logger.info { "Trying to get user data from Web" }
-        val user = getEntity<SingleUserResponse>(url).data
+        val response = getEntity<SingleUserResponse>(url)
+        assertTrue { response.responseCode == SUCCESS }
         logger.info { "User date got from Web \n" }
 
-        return user
+        return response.entity.data
     }
 }
