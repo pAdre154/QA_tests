@@ -25,6 +25,9 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
 
+    // JUnit suite
+    testImplementation("org.junit.platform:junit-platform-suite:1.10.3")
+
     // Jackson
     val jacksonVersion = "2.0.1"
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
