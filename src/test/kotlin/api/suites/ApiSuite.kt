@@ -1,11 +1,13 @@
 package api.suites
 
-import api.regres.UserDataTests
+import api.regres.SingleUserNotFoundPage
+import api.regres.SingleUserPage
 import org.junit.platform.suite.api.SelectClasses
 import org.junit.platform.suite.api.Suite
 
 @Suite
 @SelectClasses(
-    UserDataTests::class,
+    SingleUserPage::class,
+    SingleUserNotFoundPage::class
 )
 class ApiSuite
