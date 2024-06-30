@@ -2,8 +2,8 @@ package api.regres
 
 import api.BaseUrlTestClass
 import api.EndPoints
-import api.data.SingleUserResponse
-import api.data.UserData
+import api.data.response.SingleUserResponse
+import api.data.response.UserData
 import org.junit.jupiter.api.Test
 import org.junit.platform.commons.logging.Logger
 import org.junit.platform.commons.logging.LoggerFactory

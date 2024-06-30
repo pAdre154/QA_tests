@@ -1,4 +1,4 @@
-package api.data
+package api.data.response
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
