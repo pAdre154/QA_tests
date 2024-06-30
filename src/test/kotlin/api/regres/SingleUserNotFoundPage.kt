@@ -2,7 +2,7 @@ package api.regres
 
 import api.BaseUrlTestClass
 import api.EndPoints.Companion.SINGLE_USER_NOT_FOUND_PAGE
-import api.data.EmptyResponse
+import api.data.response.EmptyResponse
 import org.junit.jupiter.api.Test
 import org.junit.platform.commons.logging.Logger
 import org.junit.platform.commons.logging.LoggerFactory
