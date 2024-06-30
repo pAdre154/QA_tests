@@ -2,24 +2,20 @@ package utils
 
 import io.restassured.RestAssured.given
 import io.restassured.http.ContentType
+import io.restassured.response.Response
+import io.restassured.specification.RequestSpecification
 
 inline fun <reified responseType> getEntity(
     url: String,
     contentType: ContentType = ContentType.JSON
 ): Entity<responseType> {
-    val response = given()
+    val request = given()
+        .contentType(contentType)
         .When()
         .log().all()
-        .contentType(contentType)
-        .get(url)
 
-    val entity = response
-        .then()
-        .log().all()
-        .extract()
-        .body()
-        .`as`(responseType::class.java)
-
+    val response = request.get(url)
+    val entity = getEntity<responseType>(response)
     val code = response.statusCode
 
     return Entity(entity, code)
@@ -30,22 +26,10 @@ inline fun <reified responseType, reified requestBodyType> postWithResponseEntit
     requestBody: requestBodyType,
     contentType: ContentType = ContentType.JSON
 ): Entity<responseType> {
-    val request = given()
-        .contentType(contentType)
-        .body(requestBody)
+    val request = getRequest<requestBodyType>(requestBody, contentType)
+    val response = request.post(url)
 
-    val response = request
-        .When()
-        .log().all()
-        .post(url)
-
-    val entity = response
-        .then()
-        .log().all()
-        .extract()
-        .body()
-        .`as`(responseType::class.java)
-
+    val entity = getEntity<responseType>(response)
     val code = response.statusCode
 
     return Entity(entity, code)
@@ -56,22 +40,10 @@ inline fun <reified responseType, reified requestBodyType> putWithResponseEntity
     requestBody: requestBodyType,
     contentType: ContentType = ContentType.JSON
 ): Entity<responseType> {
-    val request = given()
-        .contentType(contentType)
-        .body(requestBody)
+    val request = getRequest<requestBodyType>(requestBody, contentType)
+    val response = request.put(url)
 
-    val response = request
-        .When()
-        .log().all()
-        .put(url)
-
-    val entity = response
-        .then()
-        .log().all()
-        .extract()
-        .body()
-        .`as`(responseType::class.java)
-
+    val entity = getEntity<responseType>(response)
     val code = response.statusCode
 
     return Entity(entity, code)
@@ -82,22 +54,10 @@ inline fun <reified responseType, reified requestBodyType> patchWithResponseEnti
     requestBody: requestBodyType,
     contentType: ContentType = ContentType.JSON
 ): Entity<responseType> {
-    val request = given()
-        .contentType(contentType)
-        .body(requestBody)
+    val request = getRequest<requestBodyType>(requestBody, contentType)
+    val response = request.patch(url)
 
-    val response = request
-        .When()
-        .log().all()
-        .patch(url)
-
-    val entity = response
-        .then()
-        .log().all()
-        .extract()
-        .body()
-        .`as`(responseType::class.java)
-
+    val entity = getEntity<responseType>(response)
     val code = response.statusCode
 
     return Entity(entity, code)
@@ -108,16 +68,30 @@ inline fun <reified requestBodyType> deleteEntity(
     requestBody: requestBodyType,
     contentType: ContentType = ContentType.JSON
 ): Int {
-    val request = given()
-        .contentType(contentType)
-        .body(requestBody)
-
-    val response = request
-        .When()
-        .log().all()
-        .delete(url)
+    val request = getRequest<requestBodyType>(requestBody, contentType)
+    val response = request.delete(url)
 
     return response.statusCode
+}
+
+inline fun <reified T> getRequest(
+    requestBody: T,
+    contentType: ContentType
+): RequestSpecification {
+    return given()
+        .When()
+        .log().all()
+        .contentType(contentType)
+        .body(requestBody)
+}
+
+inline fun <reified T> getEntity(response: Response): T {
+    return response
+        .then()
+        .log().all()
+        .extract()
+        .body()
+        .`as`(T::class.java)
 }
 
 data class Entity<T>(
