@@ -1,7 +1,7 @@
 package api.regres
 
 import api.BaseUrlTestClass
-import api.EndPoints.Companion.SINGLE_USER_NOT_FOUND_PAGE
+import api.EndPoints.getSingleUserUrl
 import api.data.response.EmptyResponse
 import org.junit.jupiter.api.Test
 import org.junit.platform.commons.logging.Logger
@@ -15,7 +15,9 @@ import kotlin.test.assertTrue
 */
 
 class SingleUserNotFoundPage : BaseUrlTestClass() {
-    override val url: String = SINGLE_USER_NOT_FOUND_PAGE
+    private val nonExistUserId = 23
+
+    override val url: String = getSingleUserUrl(nonExistUserId)
     override val logger: Logger = LoggerFactory.getLogger(SingleUserNotFoundPage::class.java)
 
     @Test

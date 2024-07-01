@@ -1,7 +1,7 @@
 package api.regres
 
 import api.BaseUrlTestClass
-import api.EndPoints
+import api.EndPoints.getSingleUserUrl
 import api.data.request.EmptyRequest
 import api.data.request.ShortUserDataRequest
 import api.data.response.*
@@ -35,9 +35,10 @@ import kotlin.test.assertTrue
 
 class SingleUserPage : BaseUrlTestClass() {
 
-    override val url = EndPoints.SINGLE_USER_PAGE
-    override val logger: Logger = LoggerFactory.getLogger(SingleUserPage::class.java)
+    private val existUserId = 2
 
+    override val url: String = getSingleUserUrl(existUserId)
+    override val logger: Logger = LoggerFactory.getLogger(SingleUserPage::class.java)
 
     @Test
     fun userEmailEnd() {
