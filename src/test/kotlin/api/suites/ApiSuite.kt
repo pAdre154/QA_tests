@@ -1,9 +1,6 @@
 package api.suites
 
-import api.regres.LoginPage
-import api.regres.SingleUserNotFoundPage
-import api.regres.SingleUserPage
-import api.regres.UserListPage
+import api.regres.*
 import org.junit.platform.suite.api.SelectClasses
 import org.junit.platform.suite.api.Suite
 
@@ -13,5 +10,7 @@ import org.junit.platform.suite.api.Suite
     SingleUserNotFoundPage::class,
     LoginPage::class,
     UserListPage::class,
+    SingleResourcePage::class,
+    SingleResourceNotFoundPage::class
 )
 class ApiSuite

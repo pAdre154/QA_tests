@@ -41,7 +41,7 @@ class SingleUserPage : BaseUrlTestClass() {
     override val logger: Logger = LoggerFactory.getLogger(SingleUserPage::class.java)
 
     @Test
-    fun userEmailEnd() {
+    fun userEmailEndWithEmail() {
         val user = getUser()
 
         assertTrue { user.email.endsWith(USER_EMAIL_END) }
@@ -57,7 +57,7 @@ class SingleUserPage : BaseUrlTestClass() {
     }
 
     @Test
-    fun userAvatarFileIsCorrectFormat() {
+    fun userAvatarFileIsSupportedFormat() {
         val user = getUser()
         val avatarName = user.avatar.split(PATH_SEPARATOR).last()
 
@@ -81,7 +81,7 @@ class SingleUserPage : BaseUrlTestClass() {
     }
 
     @Test
-    fun userFistNameSecondNameEmailIsCorrectLength() {
+    fun userFistNameSecondNameEmailIsLessThenMaxFieldLength() {
         val user = getUser()
 
         assertTrue { user.firstName.length <= MAX_TEXT_FIELD_LENGTH }
