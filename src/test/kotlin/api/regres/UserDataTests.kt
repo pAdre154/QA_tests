@@ -69,6 +69,11 @@ class UserDataTests : BaseUrlTest() {
     }
 
     @Test
+    fun wqe1() {
+        print(EndPoints.RZD)
+    }
+
+    @Test
     fun q() {
         val response = given()
             .`when`()

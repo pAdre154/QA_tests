@@ -26,6 +26,10 @@ dependencies {
     //Gson
     implementation("com.google.code.gson:gson:2.11.0")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.0.1")
+
+    //.env
+    implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
+
 }
 
 tasks.test {
